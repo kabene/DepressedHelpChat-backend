@@ -1,0 +1,22 @@
+{
+  "name": "depressedhelpchat-backend",
+  "version": "1.0.0",
+  "description": "This part is the back-end repo of our project, the objective is to  make a bot that analyze and help people with sentimental troubles",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kabene/DepressedHelpChat-backend.git"
+  },
+  "author": "@KarimAbene@PierreCreplet@AnatoleHuet@CelestinSivixay",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kabene/DepressedHelpChat-backend/issues"
+  },
+  "homepage": "https://github.com/kabene/DepressedHelpChat-backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
