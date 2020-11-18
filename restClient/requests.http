@@ -1,0 +1,74 @@
+### INFO ON VARIABLES : https://github.com/Huachao/vscode-restclient
+
+### INFO ON VARIABLES : https://github.com/Huachao/vscode-restclient
+@baseUrl = http://localhost:3000/api
+### Create the user james
+POST {{baseUrl}}/users/
+Content-Type: application/json
+
+{
+    "email":"james@cool.com",
+    "password":"Jj"
+}
+
+### Define & request variable & Log the user james
+# @name login
+POST {{baseUrl}}/users/login
+Content-Type: application/json
+
+{
+    "email":"james@cool.com",
+    "password":"Jj"
+}
+
+### get the token from previous request
+@jamesToken = {{login.response.body.token}}
+
+### View all films
+GET {{baseUrl}}/films
+Authorization: {{jamesToken}}
+
+### Add a film
+POST {{baseUrl}}/films/
+Content-Type: application/json
+Authorization: {{jamesToken}}
+
+{
+    "title":"Star Wars: The Phantom Menace (Episode I)",
+    "duration": "136",
+    "budget": "115000000",
+    "link":"https://en.wikipedia.org/wiki/Star_Wars:_Episode_I_%E2%80%93_The_Phantom_Menace"
+}
+
+### Add another film
+POST {{baseUrl}}/films/
+Content-Type: application/json
+Authorization: {{jamesToken}}
+
+{
+    "title":"Star Wars: Episode 2",
+    "duration": "1",
+    "budget": "11",
+    "link":"findIt.com"
+}
+
+### Update film with ID == 2
+
+PUT {{baseUrl}}/films/2
+Content-Type: application/json
+Authorization: {{jamesToken}}
+
+{
+    "title":"Star Wars: Episode 2",
+    "duration": "11",
+    "budget": "111",
+    "link":"www.findIt.com"
+}
+
+### Delete the film with ID == 2
+DELETE {{baseUrl}}/films/2
+Authorization: {{jamesToken}}
+
+### Read film with ID == 1
+GET {{baseUrl}}/films/1
+Authorization: {{jamesToken}}
