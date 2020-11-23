@@ -13,10 +13,11 @@ const authorize = (req, res, next) => {
   console.log("authorize() middleware");
   let token = req.get("authorization");
   if (!token) return res.status(401).send("Enter a name please.");
+  
   jwt.verify(token, jwtSecret, (err, token) => {
     if (err) return res.status(401).send(err.message);
-    let user = User.getUserConnected();
-    if (user != token.username) return res.status(401).send("User not found or not good user.");
+    let user = User.getUserFromList(token.username);
+    if (!user) return res.status(401).send("User not found.");
     // authorization is completed, call the next middleware
     next();
   });
