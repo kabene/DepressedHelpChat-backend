@@ -4,7 +4,8 @@
   "description": "This part is the back-end repo of our project, the objective is to  make a bot that analyze and help people with sentimental troubles",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon ./bin/www",
+    "start": "node ./bin/www"
   },
   "repository": {
     "type": "git",
