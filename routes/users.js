@@ -1,7 +1,7 @@
 var express = require("express");
 var router = express.Router();
 var User = require("../models/User.js");
-let { authorize, signAsynchronous } = require("../utils/auth");
+//let { authorize, signAsynchronous } = require("../utils/auth");
 const jwt = require("jsonwebtoken");
 const jwtSecret = "jkjJ1235Ohno!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 1000 = 24h

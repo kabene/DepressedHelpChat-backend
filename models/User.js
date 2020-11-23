@@ -6,40 +6,51 @@ class User {
     this.username = username;
   }
 
-  /* return a promise with async / await */
   async save() {
-    let user = this.username;
+    let userList = getUserListFromFile(FILE_PATH);
     console.log("save:", this.username);
-    saveUserToFile(FILE_PATH, user);
+    userList.push({
+      username: this.username,
+    });
+    saveUserListToFile(FILE_PATH, userList);
     return true;
   }
 
-  static getUserConnected() {
-    let user = getUserFromFile(FILE_PATH);
-    return user;
+  static get list() {
+    let userList = getUserListFromFile(FILE_PATH);
+    return userList;
   }
 
-  static isTheUserConnected(username) {
-    const userFound = User.getUserConnected();
-    return userFound == username;
+  static isUser(username) {
+    const userFound = User.getUserFromList(username);
+    console.log("User::isUser:", userFound);
+    return userFound !== undefined;
+  }
+
+  static getUserFromList(username) {
+    const userList = getUserListFromFile(FILE_PATH);
+    for (let index = 0; index < userList.length; index++) {
+      if (userList[index].username === username) return userList[index];
+    }
+    return;
   }
 
 }
-function getUserFromFile(filePath) {
+
+function getUserListFromFile(filePath) {
   const fs = require("fs");
-  if (!fs.existsSync(filePath)) return null;
-  let userData = fs.readFileSync(filePath);
-  let user;
-  if (userData) user = JSON.parse(userData);
-  else user = null;
-  return user;
+  if (!fs.existsSync(filePath)) return [];
+  let userListRawData = fs.readFileSync(filePath);
+  let userList;
+  if (userListRawData) userList = JSON.parse(userListRawData);
+  else userList = [];
+  return userList;
 }
 
-function saveUserToFile(filePath, user) {
+function saveUserListToFile(filePath, userList) {
   const fs = require("fs");
-  let data = JSON.stringify(user);
+  let data = JSON.stringify(userList);
   fs.writeFileSync(filePath, data);
 }
-
 
 module.exports = User;
