@@ -1,4 +1,5 @@
 var createError = require("http-errors");
+var helmet=require("helmet");
 var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
@@ -9,6 +10,7 @@ var logger = require("morgan");
 var usersRouter = require("./routes/users");
 
 var app = express();
+app.use(helmet);
 
 app.use(logger("dev"));
 app.use(express.json());
