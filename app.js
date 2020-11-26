@@ -9,7 +9,7 @@ var logger = require("morgan");
 var usersRouter = require("./routes/users");
 
 var app = express();
-app.use(helmet);
+app.use(helmet());
 
 app.use(logger("dev"));
 app.use(express.json());

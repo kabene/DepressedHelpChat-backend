@@ -29,4 +29,9 @@ router.get("/chat", function (req, res, next) {
   });
 });
 
+router.post("/handleUserMessage", function(req, res, next){
+  console.log(req.body.message);
+  return res.json({ answer: "TEST" });
+});
+
 module.exports = router;
