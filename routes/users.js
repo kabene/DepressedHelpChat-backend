@@ -7,11 +7,17 @@ const jwtSecret = "jkjJ1235Ohno!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 1000 = 24h
 
 
+router.post("/handleUserMessage", function(req, res, next){
+  console.log(req.body.message);
+  return res.json({ answer: "TEST" });
+});
 
-/* GET chat page : secure the route with JWT authorization */
-router.get("/chat", function (req, res, next) {
-  if (User.isUser(req.body.name)) return res.status(409).end();
-  let newUser = new User(req.body.name);
+/* POST chat page : secure the route with JWT authorization */
+router.post("/chat", function (req, res, next) {
+  //if (User.isUser(req.body.username)) return res.status(409).end();
+  console.log("req.body.username "+req.body.username);
+  let newUser = new User(req.body.username);
+  console.log("newUser : "+newUser.username);
   newUser.save().then(() => {
     jwt.sign(
       { username: newUser.username },
@@ -19,19 +25,14 @@ router.get("/chat", function (req, res, next) {
       { expiresIn: LIFETIME_JWT },
       (err, token) => {
         if (err) {
-          console.error("GET /chat :", err);
+          console.error("POST /chat :", err);
           return res.status(500).send(err.message);
         }
-        console.log("GET /user token:", token);
+        console.log("POST /user token:", token);
         return res.json({ username: newUser.username, token });
       }
     );
   });
-});
-
-router.post("/handleUserMessage", function(req, res, next){
-  console.log(req.body.message);
-  return res.json({ answer: "TEST" });
 });
 
 module.exports = router;
