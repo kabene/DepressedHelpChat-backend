@@ -2,7 +2,7 @@
 const FILE_PATH = __dirname + "/../data/users.json";
 
 class User {
-  constructor(username) {
+  constructor(username, token) {
     this.username = username;
   }
 
@@ -11,6 +11,7 @@ class User {
     console.log("save:", this.username);
     userList.push({
       username: this.username,
+      //token: 
     });
     saveUserListToFile(FILE_PATH, userList);
     return true;
