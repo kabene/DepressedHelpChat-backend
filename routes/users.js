@@ -1,4 +1,5 @@
 var express = require("express");
+var {textAnalyticsClient}= require("../utils/authAzure.js")
 var router = express.Router();
 var User = require("../models/User.js");
 //let { authorize, signAsynchronous } = require("../utils/auth");
@@ -7,9 +8,24 @@ const jwtSecret = "jkjJ1235Ohno!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 1000 = 24h
 
 
-router.post("/handleUserMessage", function(req, res, next){
+router.post("/handleUserMessage", async  function(req, res, next) {
   console.log(req.body.message);
-  return res.json({ answer: "TEST" });
+  try {
+      await sentimentAnalysis(textAnalyticsClient, req.body.message);
+      res.json({ answer: "TEST" });
+  }catch (error){
+      console.log(error);
+      res.status(500).end();
+  }
+    /* traitement messages ici
+    *
+    *
+    *
+    *
+    *
+    *
+    *
+    * */
 });
 
 /* POST chat page : secure the route with JWT authorization */
@@ -34,5 +50,29 @@ router.post("/chat", function (req, res, next) {
     );
   });
 });
+
+
+async function sentimentAnalysis(client , textInput){
+
+    const sentimentInput = [
+        textInput
+    ];
+    const sentimentResult = await client.analyzeSentiment(sentimentInput);
+    const keyPhraseResult = await client.extractKeyPhrases(sentimentInput);
+
+    sentimentResult.forEach(document => {
+        console.log(`ID: ${document.id}`);
+        console.log(`\tDocument Sentiment: ${document.sentiment}`);
+        console.log(`\tDocument Scores:`);
+        console.log(`\t\tPositive: ${document.confidenceScores.positive.toFixed(2)} \tNegative: ${document.confidenceScores.negative.toFixed(2)} \tNeutral: ${document.confidenceScores.neutral.toFixed(2)}`);
+        console.log(`\tSentences Sentiment(${document.sentences.length}):`);
+        document.sentences.forEach(sentence => {
+            console.log(`\t\tSentence sentiment: ${sentence.sentiment}`)
+            console.log(`\t\tSentences Scores:`);
+            console.log(`\t\tPositive: ${sentence.confidenceScores.positive.toFixed(2)} \tNegative: ${sentence.confidenceScores.negative.toFixed(2)} \tNeutral: ${sentence.confidenceScores.neutral.toFixed(2)}`);
+        });
+    });
+}
+
 
 module.exports = router;
