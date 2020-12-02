@@ -2,6 +2,7 @@ var express = require("express");
 var {textAnalyticsClient}= require("../utils/authAzure.js")
 var router = express.Router();
 var User = require("../models/User.js");
+var local_username;
 //let { authorize, signAsynchronous } = require("../utils/auth");
 const jwt = require("jsonwebtoken");
 const jwtSecret = "jkjJ1235Ohno!";
@@ -9,6 +10,9 @@ const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 
 
 
 router.post("/handleUserMessage", async  function(req, res, next) {
+    //répondre sans avoir reçu de request  pour intier la conversation  ? :)
+    res.json({ answer: "Bonjour"+local_username });
+    res.json({ answer: "Comment vas-tu aujourd'hui?"});
   console.log(req.body.message);
   try {
       await sentimentAnalysis(textAnalyticsClient, req.body.message);
@@ -17,12 +21,12 @@ router.post("/handleUserMessage", async  function(req, res, next) {
       console.log(error);
       res.status(500).end();
   }
+
     /* traitement messages ici
-    *
-    *
-    *
-    *
-    *
+    * 2 choix possibles :
+    * 1)  => min 100 réponses possibles classé en fct de l'état des réponses
+    * 2)  => utilisation QrA  et entré les questions possbile puis leurs attribué une réponse ensuite entrainer le modèle
+    * pour obtenir des réponses plus "humaines" et plus adaptée à l'utilisateur.
     *
     *
     * */
@@ -31,8 +35,9 @@ router.post("/handleUserMessage", async  function(req, res, next) {
 /* POST chat page : secure the route with JWT authorization */
 router.post("/chat", function (req, res, next) {
   //if (User.isUser(req.body.username)) return res.status(409).end();
-  console.log("req.body.username "+req.body.username);
-  let newUser = new User(req.body.username);
+    local_username=req.body.username
+  console.log("req.body.username "+local_username);
+  let newUser = new User(local_username);
   console.log("newUser : "+newUser.username);
   newUser.save().then(() => {
     jwt.sign(
