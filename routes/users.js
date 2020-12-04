@@ -6,13 +6,14 @@ var User = require("../models/User.js");
 const jwt = require("jsonwebtoken");
 const jwtSecret = "jkjJ1235Ohno!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 1000 = 24h
+var username;
 
 
 router.post("/handleUserMessage", async  function(req, res, next) {
     //répondre sans avoir reçu de request  pour intier la conversation  ? :)
   console.log(req.body.message);
   try {
-      await sentimentAnalysis(textAnalyticsClient, req.body.message);
+      await sentimentAnalysis(textAnalyticsClient, req.body.message,res);
       res.json({ answer: "TEST" });
   }catch (error){
       console.log(error);
@@ -23,7 +24,7 @@ router.post("/handleUserMessage", async  function(req, res, next) {
 
 /* POST chat page : secure the route with JWT authorization */
 router.post("/chat", function (req, res, next) {
-  //if (User.isUser(req.body.username)) return res.status(409).end();
+  //if (User.isUser(req.body.username)) return res.status(409).end();this.username=req.body.username;
   console.log("req.body.username "+req.body.username);
   let newUser = new User(req.body.username);
   console.log("newUser : "+newUser.username);
@@ -45,7 +46,7 @@ router.post("/chat", function (req, res, next) {
 });
 
 
-async function sentimentAnalysis(client , textInput){
+async function sentimentAnalysis(client , textInput ,res ){
 
     const sentimentInput = [textInput];
     const sentimentResult = await client.analyzeSentiment(sentimentInput);
@@ -56,68 +57,63 @@ async function sentimentAnalysis(client , textInput){
         let score_neutral_general= document.confidenceScores.neutral.toFixed(2);
         let score_negative_general= document.confidenceScores.negative.toFixed(2);
         if (1== score_neutral_general){
-
+            res.json({answer:`Désolé${this.username} mais je n'arrive pas très bien à saisir ta situation, pourrais-tu m'en dire plus ? `});
         }else {
 
             if (1 == score_negative_general) {
                 var keyword = keyPhraseExtraction(sentimentInput);
                 if (keyword.includes("suicide")) {
-
+                    answeres=["test"];
+                    res.json({answer: answeres[0]});
                 } else {
-
-                }
-                if (score_positive_general == 1) {
-                } else if (score_positive_general < 1 && score_positive_general >= 0.75) {
-                } else if (score_positive_general < 0.75 && score_positive_general >= 0.50) {
-                } else if (score_positive_general < 0.5 && score_positive_general >= 0.25) {
-                } else if (score_positive_general < 0.25 && score_positive_general >= 0.0) {
+                    answeres=["test"];
+                    res.json({answer: answeres[0]});
 
                 }
 
             } else if (score_negative_general < 1 && score_negative_general >= 0.75) {
 
-                if (score_positive_general == 1) {
-                } else if (score_positive_general < 1 && score_positive_general >= 0.75) {
-                } else if (score_positive_general < 0.75 && score_positive_general >= 0.50) {
-                } else if (score_positive_general < 0.5 && score_positive_general >= 0.25) {
-                } else if (score_positive_general < 0.25 && score_positive_general >= 0.01) {
+                if(score_positive_general>0.12){
+                    answeres=["test"];
+                    res.json({answer: answeres[0]});
+                }else{
+                    answeres=["test"];
+                    res.json({answer: answeres[0]});
 
                 }
 
             } else if (score_negative_general < 0.75 && score_negative_general >= 0.5) {
-
-                if (score_positive_general == 1) {
-                } else if (score_positive_general < 1 && score_positive_general >= 0.75) {
-                } else if (score_positive_general < 0.75 && score_positive_general >= 0.50) {
-                } else if (score_positive_general < 0.5 && score_positive_general >= 0.25) {
-                } else if (score_positive_general < 0.25 && score_positive_general >= 0.0) {
-
+                if(score_positive_general>0.32){
+                    answeres=["test"];
+                    res.json({answer: answeres[0]});
+                }else{
+                    answeres=["test"];
+                    res.json({answer: answeres[0]});
                 }
-
             } else if (score_negative_general < 0.5 && score_negative_general >= 0.25) {
+              if(score_positive_general>=0.75){
+                  answeres=["c'est plutot banal, il parrait que la météo influance grandement les émotions"];
+                  res.json({answer: answeres[0]});
+              }else {
+                  answeres=["test"];
+                  res.json({answer: answeres[0]});
+              }
 
-                if (score_positive_general == 1) {
-                } else if (score_positive_general < 1 && score_positive_general >= 0.75) {
-                } else if (score_positive_general < 0.75 && score_positive_general >= 0.50) {
-                } else if (score_positive_general < 0.5 && score_positive_general >= 0.25) {
-                } else if (score_positive_general < 0.25 && score_positive_general >= 0.0) {
+            }else if (score_negative_general < 0.25 && score_negative_general >= 0) {
+                if (score_positive_general<0.85) {
+                    answeres=["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens "];
+                    res.json({answer: answeres[0]});
+
+                }else{
+                    answeres=["Mais t'es en pleine forme!  par contre je détecte une pointe de sarcasme ou alors essaye tu de me dissimuler quelques chose? Voilà une petite blague pour détendre l'atmosphère : C’est un panda qui en avait marre de la vie et un jour, il se panda…   "];
+                    res.json({answer: answeres[0]});
 
                 }
-
-            } else if (score_negative_general < 0.25 && score_negative_general >= 0) {
-
-                if (score_positive_general == 1) {
-                    res.json({answer: "Vous allez plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens "});
-                } else if (score_positive_general < 1 && score_positive_general >= 0.75) {
-                } else if (score_positive_general < 0.75 && score_positive_general >= 0.50) {
-                } else if (score_positive_general < 0.5 && score_positive_general >= 0.25) {
-                } else if (score_positive_general < 0.25 && score_positive_general >= 0.0) {
-
-                }
-
-
+            }else{
+                res.json({answer:`Désolé${this.username} mais je n'arrive pas très bien à saisir ta situation, pourrais-tu m'en dire plus ? `});
             }
         }
+        /*
         console.log(`ID: ${document.id}`);
         console.log(`\tDocument Sentiment: ${document.sentiment}`);
         console.log(`\tDocument Scores:`);
@@ -128,6 +124,7 @@ async function sentimentAnalysis(client , textInput){
             console.log(`\t\tSentences Scores:`);
             console.log(`\t\tPositive: ${sentence.confidenceScores.positive.toFixed(2)} \tNegative: ${sentence.confidenceScores.negative.toFixed(2)} \tNeutral: ${sentence.confidenceScores.neutral.toFixed(2)}`);
         });
+         */
     });
 }
 
