@@ -19,12 +19,6 @@ router.post("/handleUserMessage", async  function(req, res, next) {
       res.status(500).end();
   }
 
-    /* traitement messages ici
-    * 2 choix possibles :
-    * 1)  => min 100 réponses possibles classé en fct de l'état des réponses
-    * 2)  => utilisation QrA  et entré les questions possbile puis leurs attribué une réponse ensuite entrainer le modèle
-    * pour obtenir des réponses plus "humaines" et plus adaptée à l'utilisateur.
-    * */
 });
 
 /* POST chat page : secure the route with JWT authorization */
@@ -53,9 +47,7 @@ router.post("/chat", function (req, res, next) {
 
 async function sentimentAnalysis(client , textInput){
 
-    const sentimentInput = [
-        textInput
-    ];
+    const sentimentInput = [textInput];
     const sentimentResult = await client.analyzeSentiment(sentimentInput);
 
 
@@ -63,23 +55,164 @@ async function sentimentAnalysis(client , textInput){
         let score_positive_general= document.confidenceScores.positive.toFixed(2);
         let score_neutral_general= document.confidenceScores.neutral.toFixed(2);
         let score_negative_general= document.confidenceScores.negative.toFixed(2);
+        if(1 == score_negative_general){
+            var keyword= keyPhraseExtraction(sentimentInput);
+            if (keyword.includes("suicide")){
 
-        if(score_negative_general==1 ){
-           var keyword= keyPhraseExtraction(sentimentInput);
-           if (keyword.includes("suicide")){
+            }else{
+            }
 
-           }else{
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){}
 
-           }
+        }else if(score_negative_general>0.9 && score_negative_general<1){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){}
+
+        }else if(score_negative_general<=0.9 && score_negative_general> 0.8){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){}
+
+        }else if(score_negative_general<=0.8 && score_negative_general> 0.7){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){}
+
+        }else if (score_negative_general<=0.7 && score_negative_general>0.6 ){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){}
+
+        }else if (score_negative_general<=0.6 && score_negative_general>0.5){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){}
+
+        }else if(score_negative_general<=0.5 && score_negative_general>0.4){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){
+
+            }
+
+        }else if(score_negative_general<=0.4 && score_negative_general>0.3){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){
+
+            }
+
+        }else if(score_negative_general<=0.3 && score_negative_general>0.2){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){
+
+            }
+
+        }else if(score_negative_general<=0.2 && score_negative_general>0.1){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){
+
+            }
+
+        }else if (score_negative_general<=0.1){
+
+            if(score_positive_general==1){
+            }else if(score_positive_general<=0.9 && score_positive_general> 0.8){
+            }else if(score_positive_general<=0.8 && score_positive_general> 0.7){
+            }else if (score_positive_general<=0.7 && score_positive_general>0.6 ){
+            }else if (score_positive_general<=0.6 && score_positive_general>0.5){
+            }else if(score_positive_general<=0.5 && score_positive_general>0.4){
+            }else if(score_positive_general<=0.4 && score_positive_general>0.3){
+            }else if(score_positive_general<=0.3 && score_positive_general>0.2){
+            }else if(score_positive_general<=0.2 && score_positive_general>0.1){
+            }else if (score_positive_general<=0.1){
+
+            }
         }
-        if(score_positive_general>=0.5){
-
-
-        }
-        if(score_negative_general>=0.5){
-
-        }
-
         console.log(`ID: ${document.id}`);
         console.log(`\tDocument Sentiment: ${document.sentiment}`);
         console.log(`\tDocument Scores:`);
