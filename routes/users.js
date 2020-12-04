@@ -115,6 +115,7 @@ async function sentimentAnalysis(client , textInput){
 
                 }
 
+
             }
         }
         console.log(`ID: ${document.id}`);
