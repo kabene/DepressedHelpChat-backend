@@ -63,9 +63,7 @@ async function sentimentAnalysis(client , textInput){
         let score_positive_general= document.confidenceScores.positive.toFixed(2);
         let score_neutral_general= document.confidenceScores.neutral.toFixed(2);
         let score_negative_general= document.confidenceScores.negative.toFixed(2);
-        if(score_neutral_general==1 || score_neutral_general>score_positive_general && score_neutral_general>score_negative_general){
 
-        }
         if(score_negative_general==1 ){
            var keyword= keyPhraseExtraction(sentimentInput);
            if (keyword.includes("suicide")){
@@ -74,13 +72,11 @@ async function sentimentAnalysis(client , textInput){
 
            }
         }
-        if(score_positive_general==1 ){
+        if(score_positive_general>=0.5){
+
 
         }
-        if(){
-
-        }
-        if(){
+        if(score_negative_general>=0.5){
 
         }
 
