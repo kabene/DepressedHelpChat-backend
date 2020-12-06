@@ -4,6 +4,7 @@ var express = require("express");
 var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+var fs=require("fs");
 //var session = require("express-session");
 
 var usersRouter = require("./routes/users");
@@ -25,5 +26,10 @@ app.use((req, res,next) => {
 
 //app.use("/", indexRouter);
 app.use("/api/users", usersRouter);
+app.get("/api/feedback",async(req,res)=>{
+  var data=JSON.parse (fs.readFileSync("./data/data.json"));
+  data.feedback.push(req.query);
+  fs.writeFileSync("./data/data.json",JSON.stringify (data));
+})
 
 module.exports = app;
