@@ -64,10 +64,12 @@ async function sentimentAnalysis(client , textInput ,res ){
                 var keyword = keyPhraseExtraction(sentimentInput);
                 if (keyword.includes("suicide")) {
                     answeres=["test"];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
                 } else {
                     answeres=["test"];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
 
                 }
 
@@ -75,38 +77,46 @@ async function sentimentAnalysis(client , textInput ,res ){
 
                 if(score_positive_general>0.12){
                     answeres=["test"];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
                 }else{
                     answeres=["test"];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
 
                 }
 
             } else if (score_negative_general < 0.75 && score_negative_general >= 0.5) {
                 if(score_positive_general>0.32){
                     answeres=["test"];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
                 }else{
                     answeres=["test"];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
                 }
             } else if (score_negative_general < 0.5 && score_negative_general >= 0.25) {
               if(score_positive_general>=0.75){
                   answeres=["c'est plutot banal, il parrait que la météo influance grandement les émotions"];
-                  res.json({answer: answeres[0]});
+                  var i=Math.floor(Math.random() * answeres.length) ;
+                  res.json({answer: answeres[i]});
               }else {
                   answeres=["test"];
-                  res.json({answer: answeres[0]});
+                  var i=Math.floor(Math.random() * answeres.length) ;
+                  res.json({answer: answeres[i]});
               }
 
             }else if (score_negative_general < 0.25 && score_negative_general >= 0) {
                 if (score_positive_general<0.85) {
                     answeres=["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens "];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
 
                 }else{
                     answeres=["Mais t'es en pleine forme!  par contre je détecte une pointe de sarcasme ou alors essaye tu de me dissimuler quelques chose? Voilà une petite blague pour détendre l'atmosphère : C’est un panda qui en avait marre de la vie et un jour, il se panda…   "];
-                    res.json({answer: answeres[0]});
+                    var i=Math.floor(Math.random() * answeres.length) ;
+                    res.json({answer: answeres[i]});
 
                 }
             }else{
