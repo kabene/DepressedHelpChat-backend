@@ -6,7 +6,7 @@ var User = require("../models/User.js");
 const jwt = require("jsonwebtoken");
 const jwtSecret = "jkjJ1235Ohno!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 1000 = 24h
-var username;
+let username;
 
 
 router.post("/handleUserMessage", async  function(req, res, next) {
@@ -14,7 +14,6 @@ router.post("/handleUserMessage", async  function(req, res, next) {
   console.log(req.body.message);
   try {
       await sentimentAnalysis(textAnalyticsClient, req.body.message,res);
-      res.json({ answer: "TEST" });
   }catch (error){
       console.log(error);
       res.status(500).end();
@@ -56,17 +55,18 @@ async function sentimentAnalysis(client , textInput ,res ){
         let score_positive_general= document.confidenceScores.positive.toFixed(2);
         let score_neutral_general= document.confidenceScores.neutral.toFixed(2);
         let score_negative_general= document.confidenceScores.negative.toFixed(2);
-        if (1== score_neutral_general){
-            res.json({answer:`Désolé${this.username} mais je n'arrive pas très bien à saisir ta situation, pourrais-tu m'en dire plus ? `});
+        console.log(score_positive_general, score_neutral_general, score_negative_general);
+        if (score_neutral_general>score_positive_general && score_neutral_general>score_negative_general){
+            res.json({answer:`Désolé  ${this.username} mais je n'arrive pas très bien à saisir ta situation, pourrais-tu m'en dire plus ? `});
         }else {
 
             if (1 == score_negative_general) {
                 var keyword = keyPhraseExtraction(sentimentInput);
                 if (keyword.includes("suicide")) {
-                    answeres=["test"];
+                    answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas je pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
                     res.json({answer: answeres[0]});
                 } else {
-                    answeres=["test"];
+                    answeres=["Parfois la vie est compliquée mais il ne faut pas te laisser abatre! reprend toi! "];
                     res.json({answer: answeres[0]});
 
                 }
@@ -74,7 +74,7 @@ async function sentimentAnalysis(client , textInput ,res ){
             } else if (score_negative_general < 1 && score_negative_general >= 0.75) {
 
                 if(score_positive_general>0.12){
-                    answeres=["test"];
+                    answeres=["il faudrait te changer les idées... regarde un film: je te conseil : le retour de la momie "];
                     res.json({answer: answeres[0]});
                 }else{
                     answeres=["test"];
@@ -95,7 +95,7 @@ async function sentimentAnalysis(client , textInput ,res ){
                   answeres=["c'est plutot banal, il parrait que la météo influance grandement les émotions"];
                   res.json({answer: answeres[0]});
               }else {
-                  answeres=["test"];
+                  answeres=[""];
                   res.json({answer: answeres[0]});
               }
 
