@@ -16,7 +16,7 @@ router.post("/handleUserMessage", function(req, res, next){
 router.post("/chat", function (req, res, next) {
   //if (User.isUser(req.body.username)) return res.status(409).end();
   console.log("req.body.username "+req.body.username);
-  let newUser = new User(req.body.username);
+  let newUser = new User(userHash(req.body.username));
   console.log("newUser : "+newUser.username);
   newUser.save().then(() => {
     jwt.sign(
@@ -34,5 +34,17 @@ router.post("/chat", function (req, res, next) {
     );
   });
 });
+
+function userHash(userName) {               
+  var hash = 0; 
+  if (userName.length == 0) return hash; 
+  for (i = 0; i < userName.length; i++) { 
+      char = userName.charCodeAt(i); 
+      hash = ((hash << 5) - hash) + char; 
+      hash = hash & hash; 
+  } 
+    
+  return hash; 
+}
 
 module.exports = router;
