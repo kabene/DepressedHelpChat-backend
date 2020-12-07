@@ -6,7 +6,8 @@ var User = require("../models/User.js");
 const jwt = require("jsonwebtoken");
 const jwtSecret = "jkjJ1235Ohno!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 1000 = 24h
-var username;
+let username;
+var i;
 
 
 router.post("/handleUserMessage", async  function(req, res, next) {
@@ -14,7 +15,6 @@ router.post("/handleUserMessage", async  function(req, res, next) {
   console.log(req.body.message);
   try {
       await sentimentAnalysis(textAnalyticsClient, req.body.message,res);
-      res.json({ answer: "TEST" });
   }catch (error){
       console.log(error);
       res.status(500).end();
@@ -26,7 +26,7 @@ router.post("/handleUserMessage", async  function(req, res, next) {
 router.post("/chat", function (req, res, next) {
   //if (User.isUser(req.body.username)) return res.status(409).end();this.username=req.body.username;
   console.log("req.body.username "+req.body.username);
-  let newUser = new User(req.body.username);
+  let newUser = new User(userHash(req.body.username));
   console.log("newUser : "+newUser.username);
   newUser.save().then(() => {
     jwt.sign(
@@ -45,6 +45,18 @@ router.post("/chat", function (req, res, next) {
   });
 });
 
+function userHash(userName) {
+  var hash = 0;
+  if (userName.length == 0) return hash;
+  for (i = 0; i < userName.length; i++) {
+      char = userName.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash;
+  }
+
+  return hash;
+}
+
 
 async function sentimentAnalysis(client , textInput ,res ){
 
@@ -56,19 +68,20 @@ async function sentimentAnalysis(client , textInput ,res ){
         let score_positive_general= document.confidenceScores.positive.toFixed(2);
         let score_neutral_general= document.confidenceScores.neutral.toFixed(2);
         let score_negative_general= document.confidenceScores.negative.toFixed(2);
-        if (1== score_neutral_general){
-            res.json({answer:`Désolé${this.username} mais je n'arrive pas très bien à saisir ta situation, pourrais-tu m'en dire plus ? `});
+        console.log(score_positive_general, score_neutral_general, score_negative_general);
+        if (score_neutral_general>score_positive_general && score_neutral_general>score_negative_general){
+            res.json({answer:`Désolé mais je n'arrive pas très bien à saisir ta situation, pourrais-tu m'en dire plus ? `});
         }else {
 
-            if (1 == score_negative_general) {
+            if (score_neutral_general>score_positive_general && score_neutral_general>score_negative_general) {
                 var keyword = keyPhraseExtraction(sentimentInput);
                 if (keyword.includes("suicide")) {
-                    answeres=["test"];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas je pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 } else {
-                    answeres=["test"];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    answeres=["Parfois la vie est compliquée mais il ne faut pas te laisser abatre! reprend toi! "];
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
                 }
@@ -76,46 +89,46 @@ async function sentimentAnalysis(client , textInput ,res ){
             } else if (score_negative_general < 1 && score_negative_general >= 0.75) {
 
                 if(score_positive_general>0.12){
-                    answeres=["test"];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    answeres=["il faudrait te changer les idées... regarde un film: je te conseil : le retour de la momie "];
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }else{
                     answeres=["test"];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
                 }
 
             } else if (score_negative_general < 0.75 && score_negative_general >= 0.5) {
                 if(score_positive_general>0.32){
-                    answeres=["test"];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    answeres=["De temps en temps  il faut prendre la vie d'un point de vue plus philosophe","Tu aimerais que l'on parles d'autre chose ? "];
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }else{
-                    answeres=["test"];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    answeres=[""];
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }
             } else if (score_negative_general < 0.5 && score_negative_general >= 0.25) {
               if(score_positive_general>=0.75){
                   answeres=["c'est plutot banal, il parrait que la météo influance grandement les émotions"];
-                  var i=Math.floor(Math.random() * answeres.length) ;
+                  i=Math.floor(Math.random() * answeres.length) ;
                   res.json({answer: answeres[i]});
               }else {
-                  answeres=["test"];
-                  var i=Math.floor(Math.random() * answeres.length) ;
+                  answeres=[""];
+                  i=Math.floor(Math.random() * answeres.length) ;
                   res.json({answer: answeres[i]});
               }
 
             }else if (score_negative_general < 0.25 && score_negative_general >= 0) {
                 if (score_positive_general<0.85) {
                     answeres=["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens "];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
                 }else{
                     answeres=["Mais t'es en pleine forme!  par contre je détecte une pointe de sarcasme ou alors essaye tu de me dissimuler quelques chose? Voilà une petite blague pour détendre l'atmosphère : C’est un panda qui en avait marre de la vie et un jour, il se panda…   "];
-                    var i=Math.floor(Math.random() * answeres.length) ;
+                    i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
                 }
