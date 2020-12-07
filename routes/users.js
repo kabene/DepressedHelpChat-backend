@@ -68,7 +68,7 @@ async function sentimentAnalysis(client , textInput ,res ){
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 } else {
-                    answeres=["Parfois la vie est compliquée mais il ne faut pas te laisser abatre! reprend toi! "];
+                    answeres=["Parfois la vie est compliquée mais il ne faut pas te laisser abatre! reprend toi!", "Tu n'es pas tout seul, je suis là pour t'écouter !"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
@@ -77,7 +77,7 @@ async function sentimentAnalysis(client , textInput ,res ){
             } else if (score_negative_general < 1 && score_negative_general >= 0.75) {
 
                 if(score_positive_general>0.12){
-                    answeres=["il faudrait te changer les idées... regarde un film: je te conseil : le retour de la momie "];
+                    answeres=["il faudrait te changer les idées... regarde un film: je te conseil : le retour de la momie", ""];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }else{
@@ -89,7 +89,7 @@ async function sentimentAnalysis(client , textInput ,res ){
 
             } else if (score_negative_general < 0.75 && score_negative_general >= 0.5) {
                 if(score_positive_general>0.32){
-                    answeres=["De temps en temps  il faut prendre la vie d'un point de vue plus philosophe","Tu aimerais que l'on parles d'autre chose ? "];
+                    answeres=["De temps en temps  il faut prendre la vie d'un point de vue plus philosophe","Tu aimerais que l'on parles d'autre chose ?"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }else{
@@ -110,12 +110,12 @@ async function sentimentAnalysis(client , textInput ,res ){
 
             }else if (score_negative_general < 0.25 && score_negative_general >= 0) {
                 if (score_positive_general<0.85) {
-                    answeres=["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens "];
+                    answeres=["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
                 }else{
-                    answeres=["Mais t'es en pleine forme!  par contre je détecte une pointe de sarcasme ou alors essaye tu de me dissimuler quelques chose? Voilà une petite blague pour détendre l'atmosphère : C’est un panda qui en avait marre de la vie et un jour, il se panda…   "];
+                    answeres=["Mais t'es en pleine forme!  par contre je détecte une pointe de sarcasme ou alors essaye tu de me dissimuler quelques chose? Voilà une petite blague pour détendre l'atmosphère : C’est un panda qui en avait marre de la vie et un jour, il se panda…"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
