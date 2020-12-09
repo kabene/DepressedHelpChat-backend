@@ -93,7 +93,7 @@ async function sentimentAnalysis(client , textInput ,res ){
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }else{
-                    answeres=["Tu sais que tu n'est pas seu, on est énormément sur terre dans cette situation"];
+                    answeres=["Tu sais que tu n'es pas seul, on est énormément sur terre dans cette situation"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
