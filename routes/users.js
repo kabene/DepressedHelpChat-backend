@@ -6,7 +6,7 @@ var User = require("../models/User.js");
 const jwt = require("jsonwebtoken");
 const jwtSecret = "jkjJ1235Ohno!";
 const LIFETIME_JWT = 24 * 60 * 60 * 1000; // 10;// in seconds // 24 * 60 * 60 * 1000 = 24h
-let username;
+
 var i;
 
 
@@ -76,7 +76,7 @@ async function sentimentAnalysis(client , textInput ,res ){
             if (score_neutral_general>score_positive_general && score_neutral_general>score_negative_general) {
                 var keyword = keyPhraseExtraction(sentimentInput);
                 if (keyword.includes("suicide")) {
-                    answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas je pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
+                    answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 } else {
@@ -89,11 +89,11 @@ async function sentimentAnalysis(client , textInput ,res ){
             } else if (score_negative_general < 1 && score_negative_general >= 0.75) {
 
                 if(score_positive_general>0.12){
-                    answeres=["il faudrait te changer les idées... regarde un film: je te conseil : le retour de la momie", ""];
+                    answeres=["il faudrait te changer les idées... regarde un film: je te conseil : le retour de la momie"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }else{
-                    answeres=["test"];
+                    answeres=["Tu sais que tu n'est pas seu, on est énormément sur terre dans cette situation"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
@@ -105,7 +105,7 @@ async function sentimentAnalysis(client , textInput ,res ){
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }else{
-                    answeres=[""];
+                    answeres=["Si jamais tu pourrais te trouver à manger askip la nourriture règle tout les soucis "];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
                 }
@@ -115,7 +115,7 @@ async function sentimentAnalysis(client , textInput ,res ){
                   i=Math.floor(Math.random() * answeres.length) ;
                   res.json({answer: answeres[i]});
               }else {
-                  answeres=[""];
+                  answeres=["ok, et qu'est ce qu'il t'e"];
                   i=Math.floor(Math.random() * answeres.length) ;
                   res.json({answer: answeres[i]});
               }
