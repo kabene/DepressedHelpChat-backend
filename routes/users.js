@@ -73,7 +73,7 @@ async function sentimentAnalysis(client , textInput ,res ){
             res.json({answer:`Désolé mais je n'arrive pas très bien à saisir ta situation, pourrais-tu m'en dire plus ? `});
         }else {
 
-            if (score_neutral_general>score_positive_general && score_neutral_general>score_negative_general) {
+            if (score_negative_general>score_positive_general && score_negative_general>score_neutral_general_general) {
                 var keyword = keyPhraseExtraction(sentimentInput);
                 if (keyword.includes("suicide")) {
                     answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
