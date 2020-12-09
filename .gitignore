@@ -103,6 +103,6 @@ dist
 # TernJS port file
 .tern-port
 
-#delete files data folder
+
 .data/users.json
 .data/data.json
