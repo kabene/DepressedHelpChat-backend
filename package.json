@@ -6,7 +6,6 @@
   "scripts": {
     "start": "node ./bin/www",
     "dev": "nodemon ./bin/www"
-
   },
   "repository": {
     "type": "git",
