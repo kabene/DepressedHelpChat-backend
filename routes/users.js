@@ -93,7 +93,7 @@ async function sentimentAnalysis(client, textInput, res) {
 
             } else if (score_negative_general < 0.75 && score_negative_general >= 0.5) {
                 if (textInput.includes("suicide"||"suicider"||"me donner la mort"||" en finir avec la vie")){
-                    answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
+                    answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide !"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
@@ -109,7 +109,7 @@ async function sentimentAnalysis(client, textInput, res) {
                 }
             } else if (score_negative_general < 0.5 && score_negative_general >= 0.25) {
                 if (textInput.includes("suicide" || "suicider" || "me donner la mort" || " en finir avec la vie")) {
-                    answeres = ["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
+                    answeres = ["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide!"];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 } else if (score_positive_general >= 0.75) {
@@ -124,7 +124,7 @@ async function sentimentAnalysis(client, textInput, res) {
 
             } else if (score_negative_general < 0.25 && score_negative_general >= 0) {
                 if (score_positive_general < 0.85) {
-                    answeres = ["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens"];
+                    answeres = ["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens","J'ai l'impression que rien ruinera ton moral aujourd'hui ;) "];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
 
