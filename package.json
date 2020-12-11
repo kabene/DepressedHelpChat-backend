@@ -4,8 +4,9 @@
   "description": "This part is the back-end repo of our project, the objective is to  make a bot that analyze and help people with sentimental troubles",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon ./bin/www",
-    "start": "node ./bin/www"
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www"
+
   },
   "repository": {
     "type": "git",
