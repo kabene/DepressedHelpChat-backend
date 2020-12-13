@@ -77,59 +77,59 @@ async function sentimentAnalysis(client, textInput, res) {
 
             } else if (score_negative_general < 1 && score_negative_general >= 0.75) {
                 if (textInput.includes("suicide" || "suicider" || "me donner la mort" || " en finir avec la vie")) {
-                    answeres = ["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide mais il faudrait que tu demandes me le demande"];
+                    answeres = ["Tu n'as pas besoin d'en arriver la ! Si ça ne va vraiment pas, tu pourrais passer un appel à un service d'aide mais il faudrait que tu me le demandes."];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
 
                 } else if (score_positive_general > 0.12) {
-                    answeres = ["il faudrait te changer les idées... regarde un film: je te conseil : le retour de la momie"];
+                    answeres = ["Il faudrait te changer les idées... Je sais ! Regarde un film, je te conseille 'Le retour de la momie'"];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 } else {
-                    answeres = ["Tu sais que tu n'es pas seul, on est énormément sur terre dans cette situation"];
+                    answeres = ["Tu sais que tu n'es pas seul, on est énormément sur terre dans cette situation."];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 }
 
             } else if (score_negative_general < 0.75 && score_negative_general >= 0.5) {
                 if (textInput.includes("suicide"||"suicider"||"me donner la mort"||" en finir avec la vie")){
-                    answeres=["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide !"];
+                    answeres=["Tu n'as pas besoin d'en arriver la ! Si ça ne va vraiment pas, tu pourrais passer un appel à un service d'aide !"];
                     i=Math.floor(Math.random() * answeres.length) ;
                     res.json({answer: answeres[i]});
 
 
                 }else if (score_positive_general > 0.32) {
-                    answeres = ["De temps en temps  il faut prendre la vie d'un point de vue plus philosophe", "Tu aimerais que l'on parles d'autre chose ?"];
+                    answeres = ["De temps en temps, il faut prendre la vie d'un point de vue plus philosophique.", "Aimerais-tu que l'on parle d'autre chose ?"];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 } else {
-                    answeres = ["Si jamais tu pourrais te trouver à manger askip la nourriture règle tout les soucis "];
+                    answeres = ["Si jamais, tu pourrais te trouver à manger ! Askip la nourriture règle tous les soucis !"];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 }
             } else if (score_negative_general < 0.5 && score_negative_general >= 0.25) {
                 if (textInput.includes("suicide" || "suicider" || "me donner la mort" || " en finir avec la vie")) {
-                    answeres = ["Tu n'as pas besoin d'en arriver la, si ça ne va vraiment pas tu pourrais passer un appel à un service d'aide!"];
+                    answeres = ["Tu n'as pas besoin d'en arriver la ! Si ça ne va vraiment pas, tu pourrais passer un appel à un service d'aide !"];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 } else if (score_positive_general >= 0.75) {
-                    answeres = ["c'est plutot banal, il parrait que la météo influance grandement les émotions"];
+                    answeres = ["C'est plutot banal, il paraît que la météo influence grandement les émotions !"];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 } else {
-                    answeres = ["tu as passé une mauvaise journée , ça arrive essaye de te vider l'esprit mais si tu veux on peut en parler"];
+                    answeres = ["Tu as passé une mauvaise journée, ça arrive malheureusement. Essaie de te vider l'esprit ! Néanmoins, si tu veux, on peut en parler."];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
                 }
 
             } else if (score_negative_general < 0.25 && score_negative_general >= 0) {
                 if (score_positive_general < 0.85) {
-                    answeres = ["Tu vas plutôt bien selon mes observations! personnellement je profite oklm du temps qu'il me reste avant mes examens","J'ai l'impression que rien ne ruinera ton moral aujourd'hui ;) "];
+                    answeres = ["Tu vas plutot bien selon mes observations ! Personnellement, je profite oklm du temps qu'il me reste avant mes examens.","J'ai l'impression que rien ne ruinera ton moral aujourd'hui ! ;) "];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
 
                 } else {
-                    answeres = ["Mais t'es en pleine forme!  par contre je détecte une pointe de sarcasme ou alors essaye tu de me dissimuler quelques chose? Voilà une petite blague pour détendre l'atmosphère : C’est un panda qui en avait marre de la vie et un jour, il se panda…"];
+                    answeres = ["Mais t'es en pleine forme ! Par contre, je détecte une pointe de sarcasme, ou alors essaies-tu de me dissimuler quelques chose? Voilà une petite blague pour détendre l'atmosphère : C’est un panda qui en avait marre de la vie et un jour, il se panda…"];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
 
