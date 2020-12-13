@@ -124,7 +124,7 @@ async function sentimentAnalysis(client, textInput, res) {
 
             } else if (score_negative_general < 0.25 && score_negative_general >= 0) {
                 if (score_positive_general < 0.85) {
-                    answeres = ["Tu vas plutot bien selon mes observations! personellement je profite oklm du temps qu'il me reste avant mes examens","J'ai l'impression que rien ruinera ton moral aujourd'hui ;) "];
+                    answeres = ["Tu vas plutôt bien selon mes observations! personnellement je profite oklm du temps qu'il me reste avant mes examens","J'ai l'impression que rien ne ruinera ton moral aujourd'hui ;) "];
                     i = Math.floor(Math.random() * answeres.length);
                     res.json({answer: answeres[i]});
 
