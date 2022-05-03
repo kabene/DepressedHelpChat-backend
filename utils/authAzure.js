@@ -8,7 +8,7 @@
 
 
 const { TextAnalyticsClient, AzureKeyCredential } = require("@azure/ai-text-analytics");
-const key = '4035600fb37547a0b4d32c5fc7bc69c7';
+const key = '';
 const endpoint = 'https://depressedhelpedchat.cognitiveservices.azure.com/';
 const textAnalyticsClient = new TextAnalyticsClient(endpoint,  new AzureKeyCredential(key));
 
